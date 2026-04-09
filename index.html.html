@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daisy Project — Lease Prep Request | Schoeffler Energy Group</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap');
+:root{
+  --navy:#0f2744;--navy2:#1a3a5c;--gold:#c8902a;--gold-light:#fdf3e3;
+  --red:#c0392b;--red-bg:#fdf2f0;--green:#1a6b3a;--green-bg:#eaf5ee;
+  --blue-light:#eef2f9;--blue-mid:#b3c6e0;
+  --bg:#f7f5f2;--surface:#ffffff;--surface2:#f9f8f6;
+  --border:#e2ddd8;--border2:#d0cbc4;
+  --text:#1a1714;--text2:#5a5550;--text3:#8a8480;
+  --radius:10px;--radius-sm:6px;--radius-lg:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:2rem 1rem 4rem}
+h1,h2,h3,h4{font-family:'Lora',serif}
+
+.page-wrap{max-width:820px;margin:0 auto}
+
+.page-header{text-align:center;margin-bottom:2rem}
+.page-header .badge{display:inline-block;background:var(--navy);color:#fff;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:1rem}
+.page-header h1{font-size:28px;color:var(--navy);margin-bottom:.4rem}
+.page-header p{font-size:14px;color:var(--text2)}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:1.25rem;box-shadow:0 1px 3px rgba(15,39,68,.06)}
+
+.card-header{background:var(--navy);padding:1rem 1.5rem;display:flex;align-items:center;gap:.75rem}
+.card-header-icon{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.card-header h2{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:#fff;letter-spacing:.04em;text-transform:uppercase;margin:0}
+
+.card-body{padding:1.5rem}
+
+.sec-label{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin:0 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+
+.row{display:grid;gap:1rem;margin-bottom:1rem}
+.r1{grid-template-columns:1fr}
+.r2{grid-template-columns:1fr 1fr}
+.r3{grid-template-columns:1fr 1fr 1fr}
+@media(max-width:560px){.r2,.r3{grid-template-columns:1fr}}
+
+.field{display:flex;flex-direction:column;gap:5px}
+label.lbl{font-size:13px;font-weight:500;color:var(--text)}
+.req{color:var(--red);margin-left:2px}
+.flag-tag{display:inline-block;font-size:10px;font-weight:500;background:#fff8e6;color:#7a5200;border:1px solid #f0c060;border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:middle}
+.hint{font-size:11px;color:var(--text3);margin-top:2px}
+input[type=text],input[type=number],input[type=date],input[type=email],select,textarea{
+  font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);
+  border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:.55rem .75rem;background:var(--surface);width:100%;
+  transition:border-color .15s;outline:none;
+}
+input:focus,select:focus,textarea:focus{border-color:var(--navy)}
+input[readonly]{background:var(--surface2);color:var(--text2);cursor:default}
+.ferr{font-size:11px;color:var(--red);display:none;margin-top:2px}
+.has-err input,.has-err select{border-color:var(--red)!important}
+.has-err .ferr{display:block}
+
+/* Prep mode */
+.mode-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.mode-card{border:1.5px solid var(--border);border-radius:var(--radius);padding:1rem;cursor:pointer;transition:all .15s;background:var(--surface)}
+.mode-card:hover{border-color:var(--navy2)}
+.mode-card.sel{border-color:var(--navy);background:var(--blue-light)}
+.mode-card input[type=radio]{display:none}
+.mode-card-title{font-size:14px;font-weight:500;margin-bottom:3px;color:var(--text)}
+.mode-card-desc{font-size:11px;color:var(--text3)}
+.mode-card.sel .mode-card-title{color:var(--navy)}
+
+/* Lessor count */
+.count-pills{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.cpill{border:1.5px solid var(--border);border-radius:20px;background:var(--surface);padding:6px 16px;font-size:13px;font-weight:500;cursor:pointer;color:var(--text);font-family:'DM Sans',sans-serif;transition:all .15s}
+.cpill:hover{border-color:var(--navy2)}
+.cpill.sel{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* Lessor block */
+.lessor-block{border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1rem;background:var(--surface2);position:relative}
+.lessor-block-hdr{display:flex;align-items:center;gap:.6rem;margin-bottom:1.1rem}
+.lessor-num{width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-size:12px;font-weight:500;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.lessor-block-hdr h3{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--text)}
+
+.aka-reveal{display:none;margin-top:.6rem;background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:var(--radius-sm);padding:.85rem}
+.aka-reveal .reveal-lbl{font-size:12px;font-weight:500;color:var(--navy);margin-bottom:.4rem}
+
+.spouse-reveal{display:none;margin-top:.85rem;background:var(--green-bg);border:1px solid #a3d4b0;border-radius:var(--radius-sm);padding:.85rem}
+.spouse-reveal .reveal-lbl{font-size:12px;font-weight:500;color:var(--green);margin-bottom:.5rem}
+
+/* Bonus grid */
+.appr-reveal{display:none;margin-top:.75rem;background:var(--red-bg);border:1px solid #f0c0bc;border-radius:var(--radius-sm);padding:1rem}
+.appr-reveal .appr-title{font-size:13px;font-weight:500;color:var(--red);margin-bottom:.3rem}
+
+/* Counter */
+.ctr-toggle{display:flex;align-items:center;gap:.6rem;font-size:13px;color:var(--text2);cursor:pointer;border:1px solid var(--border);border-radius:var(--radius-sm);padding:.65rem 1rem;background:var(--surface2);user-select:none;transition:border-color .15s}
+.ctr-toggle:hover{border-color:var(--border2)}
+.ctr-content{display:none;margin-top:1rem}
+.ctr-content.open{display:block}
+.ctr-warn{background:var(--red-bg);border:1px solid #f0c0bc;border-radius:var(--radius-sm);padding:.75rem 1rem;margin-bottom:1rem;font-size:12px;color:var(--red)}
+
+/* Doc upload */
+.doc-card{border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;background:var(--surface);margin-bottom:.75rem}
+.doc-card h4{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;margin-bottom:3px}
+.doc-desc{font-size:11px;color:var(--text3);margin-bottom:.65rem}
+.doc-opts{display:flex;gap:.5rem;flex-wrap:wrap}
+.dopt{display:flex;align-items:center;gap:5px;font-size:12px;cursor:pointer;padding:5px 12px;border:1px solid var(--border);border-radius:20px;background:var(--surface2);color:var(--text);white-space:nowrap;transition:all .15s}
+.dopt:hover{border-color:var(--border2)}
+.dopt.sel{border-color:var(--navy);background:var(--blue-light);font-weight:500;color:var(--navy)}
+.dopt input[type=radio]{display:none}
+.fup{display:none;margin-top:.6rem;border:1.5px dashed var(--border2);border-radius:var(--radius-sm);padding:.75rem;text-align:center;font-size:12px;color:var(--text3);background:var(--surface2)}
+.fup.vis{display:block}
+.fup input[type=file]{display:none}
+.fup label{color:var(--navy);font-weight:500;cursor:pointer}
+
+/* Submit */
+.submit-bar{background:var(--navy);border-radius:var(--radius-lg);padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:1.5rem}
+.submit-note{font-size:12px;color:rgba(255,255,255,.65);max-width:400px;line-height:1.5}
+.submit-btn{background:var(--gold);color:#fff;border:none;border-radius:var(--radius-sm);padding:.75rem 2rem;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;transition:opacity .15s}
+.submit-btn:hover{opacity:.88}
+@media(max-width:560px){.submit-bar{flex-direction:column;text-align:center}}
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+<div class="page-header">
+  <div class="badge">ExxonMobil CCS — Daisy Project</div>
+  <h1>Lease Prep Request</h1>
+  <p>Liberty County, Texas &nbsp;·&nbsp; Schoeffler Energy Group &nbsp;·&nbsp; Complete all fields and submit to Nicole</p>
+</div>
+
+<!-- PREP MODE -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-header-icon">📋</div>
+    <h2>Prep Mode</h2>
+  </div>
+  <div class="card-body">
+    <div class="mode-row">
+      <label class="mode-card" id="mc-review" onclick="selMode('Review')">
+        <input type="radio" name="prepMode" value="Review">
+        <div class="mode-card-title">Landowner Review</div>
+        <div class="mode-card-desc">Draft packet — placeholders allowed for missing info</div>
+      </label>
+      <label class="mode-card" id="mc-exec" onclick="selMode('Execution')">
+        <input type="radio" name="prepMode" value="Execution">
+        <div class="mode-card-title">Execution</div>
+        <div class="mode-card-desc">Final packet — all required fields must be confirmed</div>
+      </label>
+    </div>
+    <div id="mode-err" class="ferr" style="display:none;margin-top:.5rem">Please select a prep mode.</div>
+  </div>
+</div>
+
+<!-- TRACT -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-header-icon">🗂</div>
+    <h2>Tract &amp; Identification</h2>
+  </div>
+  <div class="card-body">
+    <div class="row r3">
+      <div class="field" id="f-tractNo">
+        <label class="lbl">Tract ID <span class="req">*</span></label>
+        <input type="text" id="tractNo" placeholder="CCS.TX.DSY.0583">
+        <span class="ferr">Tract ID is required.</span>
+      </div>
+      <div class="field">
+        <label class="lbl">County <span class="req">*</span></label>
+        <select id="county">
+          <option value="Liberty">Liberty County, TX</option>
+          <option value="Hardin">Hardin County, TX</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="lbl">Project</label>
+        <input type="text" value="Daisy" readonly>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LESSORS -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-header-icon">👤</div>
+    <h2>Lessor Information</h2>
+  </div>
+  <div class="card-body">
+    <div class="field" style="margin-bottom:1.25rem">
+      <label class="lbl">How many lessors on this agreement? <span class="req">*</span></label>
+      <p class="hint" style="margin-bottom:.6rem">For married community property, the spouse is automatically added as co-lessor below.</p>
+      <div class="count-pills" id="countPills"></div>
+    </div>
+    <div id="lessorBlocks"></div>
+  </div>
+</div>
+
+<!-- PROPERTY -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-header-icon">📐</div>
+    <h2>Property</h2>
+  </div>
+  <div class="card-body">
+    <div class="row r3">
+      <div class="field" id="f-gross">
+        <label class="lbl">Gross acres <span class="req">*</span></label>
+        <input type="number" id="grossAcres" placeholder="0.000" step="0.001" oninput="calcNet()">
+        <span class="ferr">Gross acres required.</span>
+      </div>
+      <div class="field">
+        <label class="lbl">Owner interest</label>
+        <select id="ownerInt" onchange="calcNet()">
+          <option value="1.0">100%</option>
+          <option value="0.5">50%</option>
+          <option value="0.75">75%</option>
+          <option value="0.25">25%</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="lbl">Net acres</label>
+        <input type="text" id="netAcres" readonly placeholder="auto-calculated">
+      </div>
+    </div>
+    <div class="row r1">
+      <div class="field">
+        <label class="lbl">Other owners / co-interest holders</label>
+        <input type="text" id="otherOwners" placeholder="e.g. Tiffany Punchard holds undivided 50% interest">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TERMS -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-header-icon">💲</div>
+    <h2>Offer Terms</h2>
+  </div>
+  <div class="card-body">
+    <div class="field" style="margin-bottom:1.25rem">
+      <label class="lbl">Bonus per acre <span class="req">*</span></label>
+      <p class="hint" style="margin-bottom:.5rem">Select from approved bonus schedule. Maximum is $550/ac. Amounts above $350 require client approval.</p>
+      <select id="bonusSelect" onchange="pickBonusSelect()">
+        <option value="">— select bonus amount —</option>
+        <option value="350">$350 / ac &nbsp;(base)</option>
+        <option value="400">$400 / ac</option>
+        <option value="450">$450 / ac</option>
+        <option value="500">$500 / ac</option>
+        <option value="550">$550 / ac &nbsp;(max approved)</option>
+        <option value="custom">Custom amount (above $550 — approval required)</option>
+      </select>
+      <div id="bonus-err" class="ferr" style="display:none;margin-top:.4rem">Please select a bonus amount.</div>
+      <div id="bonusCustomInput" class="custom-reveal" style="margin-top:.5rem;">
+        <input type="number" id="bonusCustomVal" placeholder="e.g. 650" min="551" step="1" style="width:100%" oninput="checkTermApproval()">
+      </div>
+    </div>
+    <div class="row r3">
+      <div class="field">
+        <label class="lbl">Annual rental / acre <span class="req">*</span></label>
+        <select id="rentalSelect" onchange="pickRentalSelect()">
+          <option value="">— select —</option>
+          <option value="100">$100 / ac &nbsp;(base)</option>
+          <option value="125">$125 / ac</option>
+          <option value="150">$150 / ac &nbsp;(max approved)</option>
+          <option value="custom">Custom amount (above $150 — approval required)</option>
+        </select>
+        <div class="custom-reveal" id="rentalCustomBox">
+          <input type="number" id="rentalCustom" placeholder="Enter custom rental amount" step="0.01" min="0" oninput="checkTermApproval()">
+        </div>
+      </div>
+      <div class="field">
+        <label class="lbl">Injection fee / ton <span class="req">*</span></label>
+        <select id="injSelect" onchange="pickInjSelect()">
+          <option value="">— select —</option>
+          <option value="1.50">$1.50 / ton &nbsp;(base)</option>
+          <option value="1.55">$1.55 / ton</option>
+          <option value="1.60">$1.60 / ton</option>
+          <option value="1.65">$1.65 / ton</option>
+          <option value="1.70">$1.70 / ton</option>
+          <option value="1.75">$1.75 / ton</option>
+          <option value="1.80">$1.80 / ton</option>
+          <option value="1.85">$1.85 / ton &nbsp;(max approved)</option>
+          <option value="custom">Custom amount (above $1.85 — approval required)</option>
+        </select>
+        <div class="custom-reveal" id="injCustomBox">
+          <input type="number" id="injCustom" placeholder="Enter custom injection fee" step="0.01" min="0" oninput="checkTermApproval()">
+        </div>
+      </div>
+      <div class="field">
+        <label class="lbl">Min injection fee / acre</label>
+        <select id="minInjSelect" onchange="pickMinInjSelect()">
+          <option value="50">$50.00 / ac &nbsp;(base)</option>
+          <option value="custom">Custom amount — approval required</option>
+        </select>
+        <div class="custom-reveal" id="minInjCustomBox">
+          <input type="number" id="minInjCustom" placeholder="Enter custom min injection fee" step="0.01" min="0" oninput="checkTermApproval()">
+        </div>
+      </div>
+    </div>
+    <div class="appr-reveal" id="termApprovalBox" style="margin-bottom:1rem;">
+      <div class="appr-title">Client term approval required</div>
+      <p class="hint" style="color:var(--red);opacity:.85;margin-bottom:.75rem">One or more terms above require written client approval from ExxonMobil. Upload the approval email below — Nicole will also prepare the Exxon Lease Term Approval Request Form.</p>
+      <div id="termApprCustomAmounts" style="margin-bottom:.75rem;font-size:12px;color:var(--red);"></div>
+      <label class="lbl" style="font-size:12px;margin-bottom:.3rem;display:block">Upload client approval email</label>
+      <input type="file" id="termApprFile" accept=".pdf,.eml,.msg,.png,.jpg">
+    </div>
+    <div class="row r2">
+      <div class="field"><label class="lbl">Primary term</label><input type="text" value="5 Year" readonly></div>
+      <div class="field"><label class="lbl">Extension term</label><input type="text" value="5 Year" readonly></div>
+    </div>
+
+    <div class="ctr-toggle" onclick="toggleCtr()">
+      <span id="ctrArrow" style="font-size:16px;font-weight:300">+</span>
+      <span>Counter offer — expand if landowner terms differ from above</span>
+    </div>
+    <div class="ctr-content" id="ctrContent">
+      <div class="ctr-warn">Counter offer terms require client approval. Nicole will prepare the Exxon Lease Term Approval Request Form. Upload the approval email below.</div>
+      <div class="row r3">
+        <div class="field"><label class="lbl">Counter bonus / acre</label><input type="number" id="ctrBonus" placeholder="$0.00"></div>
+        <div class="field"><label class="lbl">Counter rental / acre</label><input type="number" id="ctrRental" placeholder="$0.00"></div>
+        <div class="field"><label class="lbl">Counter injection fee</label><input type="number" id="ctrInj" placeholder="$0.00" step="0.01"></div>
+      </div>
+      <div class="field" style="margin-top:.5rem">
+        <label class="lbl" style="font-size:12px;margin-bottom:.3rem;display:block">Upload client approval email for counter offer</label>
+        <input type="file" id="ctrFile" accept=".pdf,.eml,.msg,.png,.jpg">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DOCUMENTS -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-header-icon">📎</div>
+    <h2>Documents</h2>
+  </div>
+  <div class="card-body">
+    <p style="font-size:12px;color:var(--text3);margin-bottom:1rem;padding:.6rem .85rem;background:var(--surface2);border-radius:var(--radius-sm);border:1px solid var(--border);">Select files to record their names — Nicole will know what to expect. Forward the actual files to Nicole separately via email or shared folder.</p>
+    <div class="doc-card">
+      <h4>Source deed</h4>
+      <p class="doc-desc">General or Special Warranty Deed from which the property description is derived</p>
+      <div class="doc-opts" id="deed-opts">
+        <label class="dopt" onclick="selDoc('deed','yes',event)"><input type="radio" name="deed"> Available — upload</label>
+        <label class="dopt" onclick="selDoc('deed','no',event)"><input type="radio" name="deed"> Not yet in title files</label>
+      </div>
+      <div class="fup" id="deed-up"><input type="file" id="deed-file" accept=".pdf,.jpg,.png"><label for="deed-file">Select file — note filename for Nicole (sent separately)</label></div>
+    </div>
+    <div class="doc-card">
+      <h4>Surface ownership report (SOR)</h4>
+      <p class="doc-desc">Final or preliminary surface ownership report from title</p>
+      <div class="doc-opts" id="sor-opts">
+        <label class="dopt" onclick="selDoc('sor','yes',event)"><input type="radio" name="sor"> Available — upload</label>
+        <label class="dopt" onclick="selDoc('sor','no',event)"><input type="radio" name="sor"> Not yet available</label>
+      </div>
+      <div class="fup" id="sor-up"><input type="file" id="sor-file" accept=".pdf,.xlsx,.xls"><label for="sor-file">Select file — note filename for Nicole (sent separately)</label></div>
+    </div>
+    <div class="doc-card">
+      <h4>Appraisal district property detail</h4>
+      <p class="doc-desc">Liberty County Appraisal District property record for this tract</p>
+      <div class="doc-opts" id="cad-opts">
+        <label class="dopt" onclick="selDoc('cad','yes',event)"><input type="radio" name="cad"> Available — upload</label>
+        <label class="dopt" onclick="selDoc('cad','no',event)"><input type="radio" name="cad"> Not yet available</label>
+      </div>
+      <div class="fup" id="cad-up"><input type="file" id="cad-file" accept=".pdf,.jpg,.png"><label for="cad-file">Select file — note filename for Nicole (sent separately)</label></div>
+    </div>
+  </div>
+</div>
+
+<!-- ADDITIONAL -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-header-icon">📝</div>
+    <h2>Additional Information</h2>
+  </div>
+  <div class="card-body">
+    <div class="row r2">
+      <div class="field">
+        <label class="lbl">Assigned buyer / landman</label>
+        <select id="landman">
+          <option value="">— select —</option>
+          <option>Bob Derise</option>
+          <option>Craig Pugliese</option>
+          <option>Ian McClelland</option>
+          <option>Jacob Leblanc</option>
+          <option>Ryan Clark</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="lbl">Date requested</label>
+        <input type="date" id="dateReq">
+      </div>
+    </div>
+    <div class="field">
+      <label class="lbl">Notes / flags for Nicole</label>
+      <textarea id="notes" rows="3" style="resize:vertical" placeholder="Address conflicts, title issues, name discrepancies, contact notes, POA status..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- SUBMIT BAR -->
+<div class="submit-bar">
+  <p class="submit-note">On submit, your email client will open with a pre-filled prep request formatted for Nicole. Review and send.</p>
+  <button class="submit-btn" onclick="submitForm()">Generate &amp; Send to Nicole →</button>
+</div>
+
+</div><!-- end page-wrap -->
+
+<script>
+let selBonus=null, selModeV=null, numLessors=1;
+const BONUS=[350,400,450,500,550];
+
+let selRental=null, selInj=null;
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+function init(){
+  buildCountPills();
+  buildLessorBlocks();
+  document.getElementById('dateReq').value=new Date().toISOString().split('T')[0];
+}
+
+// ── Prep mode ─────────────────────────────────────────────────────────────────
+function selMode(m){
+  selModeV=m;
+  document.getElementById('mc-review').classList.toggle('sel',m==='Review');
+  document.getElementById('mc-exec').classList.toggle('sel',m==='Execution');
+  document.getElementById('mode-err').style.display='none';
+}
+
+// ── Bonus dropdown ────────────────────────────────────────────────────────────
+function pickBonusSelect(){
+  const v=document.getElementById('bonusSelect').value;
+  selBonus=v==='custom'?'custom':(v?parseFloat(v):null);
+  document.getElementById('bonus-err').style.display='none';
+  document.getElementById('bonusCustomInput').classList.toggle('vis',v==='custom');
+  if(v!=='custom') document.getElementById('bonusCustomVal').value='';
+  checkTermApproval();
+}
+
+// ── Rental dropdown ───────────────────────────────────────────────────────────
+function pickRentalSelect(){
+  const v=document.getElementById('rentalSelect').value;
+  selRental=v==='custom'?'custom':(v?parseFloat(v):null);
+  document.getElementById('rentalCustomBox').classList.toggle('vis',v==='custom');
+  if(v!=='custom') document.getElementById('rentalCustom').value='';
+  checkTermApproval();
+}
+
+// ── Injection dropdown ────────────────────────────────────────────────────────
+function pickInjSelect(){
+  const v=document.getElementById('injSelect').value;
+  selInj=v==='custom'?'custom':(v?parseFloat(v):null);
+  document.getElementById('injCustomBox').classList.toggle('vis',v==='custom');
+  if(v!=='custom') document.getElementById('injCustom').value='';
+  checkTermApproval();
+}
+
+// ── Min injection dropdown ────────────────────────────────────────────────────
+function pickMinInjSelect(){
+  const v=document.getElementById('minInjSelect').value;
+  document.getElementById('minInjCustomBox').classList.toggle('vis',v==='custom');
+  if(v!=='custom') document.getElementById('minInjCustom').value='';
+  checkTermApproval();
+}
+
+// ── Consolidated term approval box ────────────────────────────────────────────
+function checkTermApproval(){
+  const bonusV=document.getElementById('bonusSelect').value;
+  const rentalV=document.getElementById('rentalSelect').value;
+  const injV=document.getElementById('injSelect').value;
+  const minV=document.getElementById('minInjSelect').value;
+  const needAppr=(bonusV==='custom')
+    ||(rentalV==='custom')||(injV==='custom')||(minV==='custom');
+  const box=document.getElementById('termApprovalBox');
+  box.style.display=needAppr?'block':'none';
+  // Build summary of what needs approval
+  const lines=[];
+  if(bonusV==='custom'){const v=document.getElementById('bonusCustomVal').value;lines.push('Bonus: $'+(v||'?')+'/ac (custom — above $550 max)');}
+
+  if(rentalV==='custom'){const v=document.getElementById('rentalCustom').value;lines.push('Rental: $'+(v||'?')+'/ac (custom — above $150 max)');}
+  if(injV==='custom'){const v=document.getElementById('injCustom').value;lines.push('Injection fee: $'+(v||'?')+'/ton (custom — above $1.85 max)');}
+  if(minV==='custom'){const v=document.getElementById('minInjCustom').value;lines.push('Min injection fee: $'+(v||'?')+'/ac (custom)');}
+  document.getElementById('termApprCustomAmounts').innerHTML=lines.map(l=>'• '+l).join('<br>');
+}
+
+// ── Lessor count ──────────────────────────────────────────────────────────────
+function buildCountPills(){
+  const row=document.getElementById('countPills');
+  row.innerHTML='';
+  [1,2,3,4].forEach(n=>{
+    const b=document.createElement('button');
+    b.type='button';
+    b.className='cpill'+(n===numLessors?' sel':'');
+    b.textContent=n+(n===1?' lessor':' lessors');
+    b.onclick=()=>setLessors(n);
+    row.appendChild(b);
+  });
+}
+function setLessors(n){
+  numLessors=n;
+  buildCountPills();
+  buildLessorBlocks();
+}
+
+// ── Lessor blocks ─────────────────────────────────────────────────────────────
+function buildLessorBlocks(){
+  const c=document.getElementById('lessorBlocks');
+  c.innerHTML='';
+  for(let i=1;i<=numLessors;i++) c.appendChild(makeLessorBlock(i));
+}
+
+function makeLessorBlock(i){
+  const div=document.createElement('div');
+  div.className='lessor-block';
+  div.id='lb'+i;
+  const lbl=i===1?'Primary Lessor':'Lessor '+i;
+  const req=i===1?'<span class="req">*</span>':'';
+  div.innerHTML=`
+    <div class="lessor-block-hdr">
+      <span class="lessor-num">${i}</span>
+      <h3>${lbl}</h3>
+    </div>
+    <div class="row r1">
+      <div class="field" id="f-name${i}">
+        <label class="lbl">Legal name per title record ${req}</label>
+        <input type="text" id="name${i}" placeholder="Full name exactly as it appears in the vesting deed">
+        ${i===1?'<span class="ferr">Legal name per title record is required.</span>':''}
+        <p class="hint">Confirm spelling matches the deed exactly.</p>
+      </div>
+    </div>
+    <div class="row r1">
+      <div class="field">
+        <label class="lbl">Confirmed against W-9 / tax records? <span class="flag-tag">flagged</span></label>
+        <select id="w9-${i}" onchange="handleW9(${i})">
+          <option value="">— select —</option>
+          <option value="match">Yes — name matches W-9</option>
+          <option value="diff">Yes — confirmed, but W-9 name is different</option>
+          <option value="no">Not yet confirmed</option>
+        </select>
+        <p class="hint">Nicole may add an AKA to the agreement if the W-9 name differs.</p>
+      </div>
+    </div>
+    <div class="aka-reveal" id="aka-box-${i}">
+      <div class="reveal-lbl">W-9 / tax filing name (AKA)</div>
+      <input type="text" id="aka-${i}" placeholder="Name exactly as on W-9 or tax filing">
+      <p class="hint" style="margin-top:4px">Nicole will include this as an AKA in the agreement.</p>
+    </div>
+    <div class="row r3" style="margin-top:.85rem">
+      <div class="field" id="f-addr${i}">
+        <label class="lbl">Mailing address ${req}</label>
+        <input type="text" id="addr${i}" placeholder="123 Main St, City, TX 77000">
+        ${i===1?'<span class="ferr">Mailing address is required.</span>':''}
+      </div>
+      <div class="field">
+        <label class="lbl">Phone <span class="flag-tag">flagged</span></label>
+        <input type="text" id="phone${i}" placeholder="(000) 000-0000">
+      </div>
+      <div class="field">
+        <label class="lbl">Email <span class="flag-tag">flagged</span></label>
+        <input type="email" id="email${i}" placeholder="lessor@email.com">
+      </div>
+    </div>
+    <div class="row r2">
+      <div class="field">
+        <label class="lbl">Marital status <span class="flag-tag">flagged</span></label>
+        <select id="marital${i}" onchange="handleMarital(${i})">
+          <option value="">— select —</option>
+          <option value="single">Single</option>
+          <option value="married-cp">Married — community property</option>
+          <option value="married-sp">Married — separate property</option>
+          <option value="widowed">Widowed</option>
+          <option value="divorced">Divorced</option>
+          <option value="entity">Entity (LLC / Trust / Estate)</option>
+          <option value="unknown">Unknown</option>
+        </select>
+      </div>
+      <div class="field" style="justify-content:flex-end"></div>
+    </div>
+    <div class="spouse-reveal" id="spouse-box-${i}">
+      <div class="reveal-lbl">Spouse — added as co-lessor (community property)</div>
+      <div class="row r2" style="margin-bottom:.6rem">
+        <div class="field">
+          <label class="lbl" style="font-size:12px">Spouse legal name per title record</label>
+          <input type="text" id="sp-name-${i}" placeholder="Full legal name as in deed">
+        </div>
+        <div class="field">
+          <label class="lbl" style="font-size:12px">Spouse mailing address</label>
+          <input type="text" id="sp-addr-${i}" placeholder="Same or different address">
+        </div>
+      </div>
+      <div class="row r1" style="margin-bottom:0">
+        <div class="field">
+          <label class="lbl" style="font-size:12px">Spouse confirmed against W-9? <span class="flag-tag">flagged</span></label>
+          <select id="sp-w9-${i}" onchange="handleSpouseW9(${i})">
+            <option value="">— select —</option>
+            <option value="match">Yes — name matches W-9</option>
+            <option value="diff">Yes — W-9 name is different</option>
+            <option value="no">Not yet confirmed</option>
+          </select>
+        </div>
+      </div>
+      <div class="aka-reveal" id="sp-aka-box-${i}" style="margin-top:.5rem">
+        <div class="reveal-lbl">Spouse W-9 / tax name (AKA)</div>
+        <input type="text" id="sp-aka-${i}" placeholder="Spouse name as on W-9 or tax filing">
+      </div>
+    </div>`;
+  return div;
+}
+
+function handleW9(i){
+  const v=document.getElementById('w9-'+i).value;
+  document.getElementById('aka-box-'+i).style.display=v==='diff'?'block':'none';
+}
+function handleSpouseW9(i){
+  const v=document.getElementById('sp-w9-'+i).value;
+  document.getElementById('sp-aka-box-'+i).style.display=v==='diff'?'block':'none';
+}
+function handleMarital(i){
+  const v=document.getElementById('marital'+i).value;
+  document.getElementById('spouse-box-'+i).style.display=v==='married-cp'?'block':'none';
+}
+
+// ── Net acres ─────────────────────────────────────────────────────────────────
+function calcNet(){
+  const g=parseFloat(document.getElementById('grossAcres').value)||0;
+  const iv=parseFloat(document.getElementById('ownerInt').value)||1;
+  document.getElementById('netAcres').value=g>0?(g*iv).toFixed(3):'';
+}
+
+// ── Counter offer ─────────────────────────────────────────────────────────────
+function toggleCtr(){
+  const c=document.getElementById('ctrContent');
+  const open=c.classList.contains('open');
+  c.classList.toggle('open',!open);
+  document.getElementById('ctrArrow').textContent=open?'+':'−';
+}
+
+// ── Doc selection ─────────────────────────────────────────────────────────────
+function selDoc(t,choice,e){
+  document.querySelectorAll('#'+t+'-opts .dopt').forEach(o=>o.classList.remove('sel'));
+  if(e&&e.currentTarget)e.currentTarget.classList.add('sel');
+  document.getElementById(t+'-up').classList.toggle('vis',choice==='yes');
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function getLessorData(){
+  const out=[];
+  for(let i=1;i<=numLessors;i++){
+    const isCP=document.getElementById('marital'+i)?.value==='married-cp';
+    out.push({
+      name:document.getElementById('name'+i)?.value?.trim()||'',
+      addr:document.getElementById('addr'+i)?.value?.trim()||'',
+      phone:document.getElementById('phone'+i)?.value?.trim()||'',
+      email:document.getElementById('email'+i)?.value?.trim()||'',
+      marital:document.getElementById('marital'+i)?.value||'',
+      w9:document.getElementById('w9-'+i)?.value||'',
+      aka:document.getElementById('aka-'+i)?.value?.trim()||'',
+      isCP,
+      spName:document.getElementById('sp-name-'+i)?.value?.trim()||'',
+      spAddr:document.getElementById('sp-addr-'+i)?.value?.trim()||'',
+      spW9:document.getElementById('sp-w9-'+i)?.value||'',
+      spAka:document.getElementById('sp-aka-'+i)?.value?.trim()||'',
+    });
+  }
+  return out;
+}
+
+function maritalFull(v){
+  const m={single:'Single',
+    'married-cp':'Married — community property',
+    'married-sp':'Married — separate property',
+    widowed:'Widowed',divorced:'Divorced',entity:'Entity',unknown:'Unknown'};
+  return m[v]||v||'Not confirmed';
+}
+
+function getDocStatus(t){
+  const opts=document.querySelectorAll('#'+t+'-opts .dopt');
+  for(const o of opts){
+    if(o.classList.contains('sel')){
+      if(o.textContent.includes('Not yet')||o.textContent.includes('unavailable')) return'Not yet available';
+      const f=document.getElementById(t+'-file');
+      if(f&&f.files.length>0) return'Selected: '+f.files[0].name+' — buyer will send separately';
+      return'Available — buyer will send separately';
+    }
+  }
+  return'Not indicated';
+}
+
+// ── Validate ──────────────────────────────────────────────────────────────────
+function validate(){
+  let ok=true;
+  if(!document.getElementById('tractNo').value.trim()){
+    document.getElementById('f-tractNo').classList.add('has-err');ok=false;
+  } else document.getElementById('f-tractNo').classList.remove('has-err');
+  if(!document.getElementById('grossAcres').value){
+    document.getElementById('f-gross').classList.add('has-err');ok=false;
+  } else document.getElementById('f-gross').classList.remove('has-err');
+  if(!selModeV){document.getElementById('mode-err').style.display='block';ok=false;}
+  else document.getElementById('mode-err').style.display='none';
+  if(!selBonus){document.getElementById('bonus-err').style.display='block';ok=false;}
+  else document.getElementById('bonus-err').style.display='none';
+  const n1=document.getElementById('name1');
+  const a1=document.getElementById('addr1');
+  if(n1&&!n1.value.trim()){document.getElementById('f-name1').classList.add('has-err');ok=false;}
+  else if(n1) document.getElementById('f-name1').classList.remove('has-err');
+  if(a1&&!a1.value.trim()){document.getElementById('f-addr1').classList.add('has-err');ok=false;}
+  else if(a1) document.getElementById('f-addr1').classList.remove('has-err');
+  if(!selRental){
+    document.getElementById('rentalSelect').style.borderColor='var(--red)';ok=false;
+  } else {
+    document.getElementById('rentalSelect').style.borderColor='';
+  }
+  if(!selInj){
+    document.getElementById('injSelect').style.borderColor='var(--red)';ok=false;
+  } else {
+    document.getElementById('injSelect').style.borderColor='';
+  }
+  return ok;
+}
+
+// ── Build flags ───────────────────────────────────────────────────────────────
+function buildFlags(lessors){
+  const flags=[];
+  lessors.forEach((l,i)=>{
+    const tag=numLessors>1?`Lessor ${i+1}${l.name?' ('+l.name+')':''}`:l.name||'Lessor';
+    if(!l.marital||l.marital==='unknown') flags.push(`${tag} — marital status not confirmed`);
+    if(!l.w9||l.w9==='no') flags.push(`${tag} — name not confirmed against W-9/tax records`);
+    if(l.w9==='diff') flags.push(`${tag} — W-9 name differs from deed${l.aka?' — AKA: '+l.aka:''}; Nicole to add AKA`);
+    if(!l.phone) flags.push(`${tag} — no phone number on file`);
+    if(!l.email) flags.push(`${tag} — no email address on file`);
+    if(l.isCP){
+      if(!l.spName) flags.push(`${tag} spouse — name required (community property co-lessor)`);
+      if(!l.spW9||l.spW9==='no') flags.push(`${tag} spouse — W-9 not yet confirmed`);
+      if(l.spW9==='diff') flags.push(`${tag} spouse — W-9 name differs${l.spAka?' — AKA: '+l.spAka:''}; Nicole to add AKA`);
+    }
+  });
+  // Term flags — consolidated
+  const bonusV=document.getElementById('bonusSelect')?.value;
+  const rentalV=document.getElementById('rentalSelect')?.value;
+  const injV2=document.getElementById('injSelect')?.value;
+  const minV=document.getElementById('minInjSelect')?.value;
+  if(selBonus==='custom'){const cv=document.getElementById('bonusCustomVal')?.value;flags.push(`Custom bonus $${cv||'?'}/ac — above approved max ($550); client approval required`);}
+
+  if(selRental==='custom'){const rv=document.getElementById('rentalCustom')?.value;flags.push(`Custom rental $${rv||'?'}/ac — above approved max ($150); client approval required`);}
+  if(selInj==='custom'){const iv2=document.getElementById('injCustom')?.value;flags.push(`Custom injection fee $${iv2||'?'}/ton — above approved max ($1.85); client approval required`);}
+  if(minV==='custom'){const mv=document.getElementById('minInjCustom')?.value;flags.push(`Custom min injection fee $${mv||'?'}/ac — client approval required`);}
+  const cB=document.getElementById('ctrBonus').value;
+  const cR=document.getElementById('ctrRental').value;
+  const cI=document.getElementById('ctrInj').value;
+  if(cB||cR||cI) flags.push('Counter offer terms present — Exxon Term Approval Request Form required');
+  if(selModeV==='Execution'){
+    lessors.forEach((l,i)=>{
+      if(!l.marital||l.marital==='unknown')
+        flags.push(`⛔ EXECUTION HOLD — marital status must be confirmed for Lessor ${i+1} before packet is sent`);
+    });
+  }
+  return flags;
+}
+
+function buildReminders(lessors){
+  const r=[];
+  const _bv=document.getElementById('bonusSelect')?.value;
+  const _rv=document.getElementById('rentalSelect')?.value;
+  const _iv=document.getElementById('injSelect')?.value;
+  const _mv=document.getElementById('minInjSelect')?.value;
+  const needsExxonForm=(selBonus==='custom')
+    ||(selRental==='custom')||(_iv==='custom')||(_mv==='custom');
+  if(needsExxonForm) r.push('Prepare Exxon Lease Term Approval Request Form — one or more terms require client approval');
+  const cB=document.getElementById('ctrBonus').value;
+  const cR=document.getElementById('ctrRental').value;
+  const cI=document.getElementById('ctrInj').value;
+  if(cB||cR||cI) r.push('Prepare Exxon Lease Term Approval Request Form — counter offer terms');
+  lessors.forEach((l,i)=>{
+    if(l.w9==='diff') r.push(`Add AKA to agreement — Lessor ${i+1}${l.aka?' ('+l.aka+')':''}`);
+    if(l.isCP&&l.spW9==='diff') r.push(`Add AKA to agreement — Lessor ${i+1} spouse${l.spAka?' ('+l.spAka+')':''}`);
+  });
+  return r;
+}
+
+// ── Build email body ──────────────────────────────────────────────────────────
+function buildEmailBody(lessors, flags, reminders){
+  const gross=parseFloat(document.getElementById('grossAcres').value)||0;
+  const iv=parseFloat(document.getElementById('ownerInt').value)||1;
+  const net=(gross*iv).toFixed(3);
+  // total calculated in terms block below
+  const tractNo=document.getElementById('tractNo').value.trim();
+  const cB=document.getElementById('ctrBonus').value;
+  const cR=document.getElementById('ctrRental').value;
+  const cI=document.getElementById('ctrInj').value;
+
+  let body='';
+  body+='Nicole,\n';
+  body+='Please prepare the lease packet for the below tract.\n\n';
+  body+='════════════════════════════════════════\n';
+  body+='DAISY PROJECT — LEASE PREP REQUEST\n';
+  body+='════════════════════════════════════════\n\n';
+
+  body+='TRACT & PREP MODE\n';
+  body+='──────────────────\n';
+  body+=`Tract ID:          ${tractNo}\n`;
+  body+=`Project:           Daisy\n`;
+  body+=`County:            ${document.getElementById('county').value} County, TX\n`;
+  body+=`Prep mode:         ${selModeV}\n`;
+  body+=`Landman:           ${document.getElementById('landman').value||'—'}\n`;
+  body+=`Date requested:    ${document.getElementById('dateReq').value||'—'}\n\n`;
+
+  body+=`LESSOR${numLessors>1?'S':''} (${numLessors} on this agreement)\n`;
+  body+='──────────────────\n';
+  lessors.forEach((l,i)=>{
+    if(numLessors>1) body+=`LESSOR ${i+1}:\n`;
+    body+=`  Legal name (per title):  ${l.name||'—'}\n`;
+    if(l.w9==='match') body+=`  W-9 confirmed:           Yes — matches title name\n`;
+    if(l.w9==='diff')  body+=`  W-9 / AKA name:          ${l.aka||'(not provided)'} — Nicole please add AKA\n`;
+    if(l.w9==='no')    body+=`  W-9 confirmed:           Not yet confirmed\n`;
+    body+=`  Mailing address:         ${l.addr||'—'}\n`;
+    body+=`  Phone:                   ${l.phone||'—'}\n`;
+    body+=`  Email:                   ${l.email||'—'}\n`;
+    body+=`  Marital status:          ${maritalFull(l.marital)}\n`;
+    if(l.isCP){
+      body+=`  Spouse (co-lessor):      ${l.spName||'— NAME REQUIRED'}\n`;
+      body+=`  Spouse address:          ${l.spAddr||'—'}\n`;
+      if(l.spW9==='match') body+=`  Spouse W-9:              Confirmed — matches\n`;
+      if(l.spW9==='diff')  body+=`  Spouse W-9 / AKA:        ${l.spAka||'(not provided)'} — Nicole please add AKA\n`;
+      if(l.spW9==='no')    body+=`  Spouse W-9:              Not yet confirmed\n`;
+    }
+    if(i<numLessors-1) body+='\n';
+  });
+  body+='\n';
+
+  body+='PROPERTY\n';
+  body+='──────────────────\n';
+  body+=`Gross acres:       ${gross.toFixed(3)}\n`;
+  body+=`Owner interest:    ${(iv*100).toFixed(0)}%\n`;
+  body+=`Net acres:         ${net}\n`;
+  const oth=document.getElementById('otherOwners').value;
+  if(oth) body+=`Other interests:   ${oth}\n`;
+  body+='\n';
+
+  body+='TERMS\n';
+  body+='──────────────────\n';
+  // Resolve display values for bonus, rental, injection
+  let bonusDisplay = selBonus==='custom'
+    ? ('$'+(document.getElementById('bonusCustomVal')?.value||'?')+'/ac (CUSTOM — approval required)')
+    : ('$'+selBonus+'.00');
+  let rentalDisplay = selRental==='custom'
+    ? ('$'+(document.getElementById('rentalCustom')?.value||'?')+'/ac (CUSTOM — approval required)')
+    : (selRental ? '$'+parseFloat(selRental).toFixed(2)+'/ac' : '—');
+  let injDisplay = selInj==='custom'
+    ? ('$'+(document.getElementById('injCustom')?.value||'?')+'/ton (CUSTOM — approval required)')
+    : (selInj ? '$'+parseFloat(selInj).toFixed(2)+'/ton' : '—');
+  const minV2=document.getElementById('minInjSelect')?.value;
+  let minInjDisplay = minV2==='custom'
+    ? ('$'+(document.getElementById('minInjCustom')?.value||'?')+'/ac (CUSTOM — approval required)')
+    : '$50.00/ac';
+  let totalBonusAcre = selBonus==='custom'
+    ? parseFloat(document.getElementById('bonusCustomVal')?.value||0)
+    : (typeof selBonus==='number' ? selBonus : 0);
+  const total=(totalBonusAcre*parseFloat(net)).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+  body+=`Bonus / acre:      ${bonusDisplay}\n`;
+  body+=`Annual rental:     ${rentalDisplay}\n`;
+  body+=`Injection fee:     ${injDisplay}\n`;
+  body+=`Min injection:     $50.00 / acre\n`;
+  body+=`Total bonus:       $${total}\n`;
+  body+=`Term:              5 Year primary / 5 Year extension\n`;
+  body+=`Lease form:        Base Form\n`;
+  if(cB||cR||cI){
+    body+='\nCOUNTER OFFER TERMS:\n';
+    if(cB) body+=`  Counter bonus:   $${cB}/ac\n`;
+    if(cR) body+=`  Counter rental:  $${cR}/ac\n`;
+    if(cI) body+=`  Counter inj fee: $${cI}/ton\n`;
+  }
+  body+='\n';
+
+  body+='DOCUMENTS\n';
+  body+='──────────────────\n';
+  body+='Note: Files cannot be attached via this form. Buyer will forward documents separately.\n';
+  const deedSt=getDocStatus('deed');
+  const sorSt=getDocStatus('sor');
+  const cadSt=getDocStatus('cad');
+  body+=`Source deed:       ${deedSt}\n`;
+  body+=`SOR:               ${sorSt}\n`;
+  body+=`Appraisal detail:  ${cadSt}\n`;
+  // Flag any missing docs
+  const missingDocs=[];
+  if(deedSt==='Not yet available') missingDocs.push('Source deed');
+  if(sorSt==='Not yet available') missingDocs.push('Surface ownership report');
+  if(cadSt==='Not yet available') missingDocs.push('Appraisal district record');
+  if(missingDocs.length){
+    body+=`\nDocs not yet available: ${missingDocs.join(', ')}\n`;
+  }
+  body+='\n';
+
+  if(flags.length){
+    body+='ACTION ITEMS / FLAGS\n';
+    body+='──────────────────\n';
+    flags.forEach(f=>{ body+=`⚠ ${f}\n`; });
+    body+='\n';
+  }
+
+  if(reminders.length){
+    body+='NICOLE — FORMS & ACTIONS REQUIRED\n';
+    body+='──────────────────\n';
+    reminders.forEach(r=>{ body+=`→ ${r}\n`; });
+    body+='\n';
+  }
+
+  const notes=document.getElementById('notes').value.trim();
+  if(notes){
+    body+='NOTES\n';
+    body+='──────────────────\n';
+    body+=notes+'\n\n';
+  }
+
+  body+='════════════════════════════════════════\n';
+  body+='Please generate:\n';
+  body+='  1. Offer letter\n';
+  body+='  2. Memorandum\n';
+  body+='  3. Underground Storage Lease and Agreement\n';
+  body+='  4. Exxon Lease Term Approval Request Form (if flagged above)\n';
+  body+='  5. Lease Prep Form PDF\n\n';
+  body+=`Submitted by: ${document.getElementById('landman').value||'Buyer'}\n`;
+  return body;
+}
+
+// ── Submit ────────────────────────────────────────────────────────────────────
+function submitForm(){
+  if(!validate()) return;
+  const lessors=getLessorData();
+  const flags=buildFlags(lessors);
+  const reminders=buildReminders(lessors);
+  const tractNo=document.getElementById('tractNo').value.trim();
+  const primaryName=lessors[0]?.name||'';
+  const subject=`Lease Prep Request — ${tractNo} — ${primaryName}`;
+  const body=buildEmailBody(lessors,flags,reminders);
+  window.location.href='mailto:nicole@segland.com'
+    +'?subject='+encodeURIComponent(subject)
+    +'&body='+encodeURIComponent(body);
+}
+
+init();
+</script>
+</body>
+</html>
